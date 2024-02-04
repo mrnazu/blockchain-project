@@ -19,4 +19,13 @@ describe('Map', () => {
         assert.ok(deployedContract.options.address);
         console.log(deployedContract.options.address);
     })
+    it('new maps', async () => {
+        await deployedContract.methods.setMaps(userPassword, "here is the user password", "here is the user password 2").send({from:accounts[0], gas: 340000});
+        const updatedBodyMap = await deployedContract.methods.basicMap().call();
+
+        const updatedTailorMap = await deployedContract.methods.tailorMap().call();
+
+        assert.equal('here is the user password', updatedBodyMap);
+        assert.equal('here is the user password 2', updatedTailorMap);
+    })
 })
