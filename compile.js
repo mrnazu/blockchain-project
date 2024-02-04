@@ -12,13 +12,13 @@ let input = {
     settings: { outputSelection: { "*": { "*": ["*"] } } },
 };
 
+let compiledFile; // Define it outside the try block to make it accessible later
+
 try {
     const compiledFiles = JSON.parse(solc.compile(JSON.stringify(input)));
-    const compiledFile = compiledFiles.contracts[MapSourceName]?.Map;
+    compiledFile = compiledFiles.contracts[MapSourceName]?.Map;
 
-    if (compiledFile) {
-        console.log(compiledFile);
-    } else {
+    if (!compiledFile) {
         console.error("Compilation failed or structure is not as expected.");
     }
 } catch (error) {
